@@ -20,7 +20,7 @@
  ```sh
  scoop bucket add extras
  scoop install git python mpv ffmpeg-shared aria2 yt-dlp
- scoop install https://github.com/NightDarkness/uwu-cli/releases/download/first_release/uwu-cli.json
+ scoop install https://github.com/NightDarkness/uwu-cli/releases/download/0.1/uwu-cli.json
  python3 -m pip install lxml cloudscraper bs4 keyboard soupsieve
  ```
 
