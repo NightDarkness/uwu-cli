@@ -13,7 +13,6 @@
  ## Instalacion
 
  Requisitos
- - install <a href="https://www.python.org/downloads/" target='_blank'>Python</a>.
  - Install <a href="https://scoop.sh/" target='_blank'>Scoop</a>.
  - Install <a href="https://apps.microsoft.com/detail/9n8g5rfz9xk3?hl=en-us&gl=US" target='_blank'>Terminal Preview</a>.
 
