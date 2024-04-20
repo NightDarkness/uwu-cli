@@ -18,10 +18,10 @@
  - Install <a href="https://apps.microsoft.com/detail/9n8g5rfz9xk3?hl=en-us&gl=US" target='_blank'>Terminal Preview</a>.
 
  ```sh
- pip install lxml cloudscraper bs4 keyboard soupsieve
  scoop bucket add extras
- scoop install mpv ffmpeg-shared aria2 yt-dlp git
+ scoop install git python mpv ffmpeg-shared aria2 yt-dlp
  scoop install https://github.com/NightDarkness/uwu-cli/releases/download/first_release/uwu-cli.json
+ pip install lxml cloudscraper bs4 keyboard soupsieve
  ```
 
 ## TO-DO
