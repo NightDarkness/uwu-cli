@@ -3,7 +3,7 @@
 
  ## Dependencias
 
- - [Python](https://www.python.org/downloads/).
+ - [Python](https://www.python.org/downloads/) interprete del lenguaje Python.
  - [mpv](https://sourceforge.net/projects/mpv-player-windows/files/64bit-v3/) reproductor de video.
  - [ffmpeg](https://ffmpeg.org/download.html) transcodificador de video.
  - [aria2](https://aria2.github.io/) utilidad de descarga de línea de comando.
