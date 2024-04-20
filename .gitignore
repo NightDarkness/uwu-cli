@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+#Custom folders and files
+/release
+/uwu-cli.dist
+uwu-cli.exe
+
 # Distribution / packaging
 .Python
 build/
