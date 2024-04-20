@@ -24,6 +24,10 @@
  python3 -m pip install lxml cloudscraper bs4 keyboard soupsieve
  ```
 
+## Uso
+- uwu-cli [Nombre-del-anime]    Ejemplo : uwu-cli Jujutsu-kaisen
+- uwu-cli [comando]             Ejemplo : uwu-cli -h
+
 ## TO-DO
 
 - [x] Primer release al publico
