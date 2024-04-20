@@ -40,6 +40,8 @@ class UwuCli():
 
     def viewer(self, anime, episodes):
 
+        self.position = 1
+
         while True:
 
             os.system(self.clear_console)
@@ -51,7 +53,7 @@ class UwuCli():
                 else:
                     print(f'[ ] Episodio {str(i+1)}')
             
-            print(f'{self.cmd_colors['yellow']}\nQ para salir...{self.cmd_colors['end']}')
+            print(f'{self.cmd_colors['yellow']}\nESC para salir...{self.cmd_colors['end']}')
 
             cursor = keyboard.read_key()
 
@@ -78,7 +80,7 @@ class UwuCli():
                         else:
                             print(f'[ ] {link[0][i]['server']}')
 
-                    print(f'{self.cmd_colors['yellow']}\nQ para volver...{self.cmd_colors['end']}')
+                    print(f'{self.cmd_colors['yellow']}\nESC para volver...{self.cmd_colors['end']}')
 
                     cursor = keyboard.read_key()
 
@@ -92,10 +94,10 @@ class UwuCli():
                         os.system('mpv ' + link[0][self.position-1]['code'])
                         break
 
-                    if cursor == 'q':
+                    if cursor == 'esc':
                         os.system(self.clear_console)
                         print(f'Volviendo al menu anterior, por favor espera.')
-                        self.position = 0
+                        self.position = 1
                         self.contador = 0
                         cursor = None
                         break
@@ -107,10 +109,12 @@ class UwuCli():
 
                     time.sleep(0.1)
 
-            if cursor == 'q':
+            if cursor == 'esc':
                 cursor = None
+                self.position = 1
+                self.contador = 0
                 os.system(self.clear_console)
-                sys.exit(0)
+                break
 
             if self.position < 1:
                 self.position = episodes
@@ -147,7 +151,6 @@ class UwuCli():
                 for i in temp:
                     print(f'{i.title}')
 
-            sys.exit()
         else:
             while True:
 
@@ -170,7 +173,8 @@ class UwuCli():
                     anime = self.search_data.id
                     episodes = self.search_data.episodes[0].id
                     self.viewer(anime, episodes)
-
+                    break
+                
                 else:
                     self.position = 1
                     servers = len(self.search_data)
@@ -187,7 +191,7 @@ class UwuCli():
                             else:
                                 print(f'[ ] {self.search_data[i].id.replace('-',' ')}')
                         
-                        print(f'{self.cmd_colors['yellow']}\nQ para salir...{self.cmd_colors['end']}')
+                        print(f'{self.cmd_colors['yellow']}\nESC para salir...{self.cmd_colors['end']}')
 
                         cursor = keyboard.read_key()
 
@@ -203,9 +207,9 @@ class UwuCli():
                             episodes = self.anime_data.episodes[0].id
                             self.viewer(anime, episodes)
 
-                        if cursor == 'q':
+                        if cursor == 'esc':
                             os.system(self.clear_console)
-                            sys.exit(0)
+                            break
 
                         if self.position < 1:
                             self.position = servers
@@ -213,6 +217,9 @@ class UwuCli():
                             self.position = 1
 
                         time.sleep(0.1)
+                    break
+
+        sys.exit()
 
 app = UwuCli()
 
