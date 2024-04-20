@@ -25,6 +25,9 @@
  ```
 
 ## Uso
+
+ **En una terminal nueva**
+
 - uwu-cli [Nombre-del-anime]    Ejemplo : uwu-cli Jujutsu-kaisen
 - uwu-cli [comando]             Ejemplo : uwu-cli -h
 
