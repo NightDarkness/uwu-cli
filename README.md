@@ -13,9 +13,9 @@
  ## Instalacion
 
  Requisitos
- - install [Python](https://www.python.org/downloads/).
- - Install [Scoop](https://scoop.sh/).
- - Install [Terminal Preview](https://apps.microsoft.com/detail/9n8g5rfz9xk3?hl=en-us&gl=US).
+ - install [Python](https://www.python.org/downloads/){:target="_blank"}.
+ - Install [Scoop](https://scoop.sh/){:target="_blank"}.
+ - Install [Terminal Preview](https://apps.microsoft.com/detail/9n8g5rfz9xk3?hl=en-us&gl=US){:target="_blank"}.
 
  ```sh
  pip install lxml cloudscraper bs4 keyboard soupsieve
