@@ -11,24 +11,18 @@
  **NOTA** Todas las dependencias deben ser agregadas a el `PATH` de windows para que uwu-cli trabaje sin ningun problema.
 
  ## Instalacion
- 
- ### Automatica
 
  Requisitos
- - Install [scoop](https://scoop.sh/).
- - Install [Terminal Preview](https://apps.microsoft.com/detail/9n8g5rfz9xk3?hl=en-us&gl=US).
+ - install <a href="https://www.python.org/downloads/" target='_blank'>Python</a>.
+ - Install <a href="https://scoop.sh/" target='_blank'>Scoop</a>.
+ - Install <a href="https://apps.microsoft.com/detail/9n8g5rfz9xk3?hl=en-us&gl=US" target='_blank'>Terminal Preview</a>.
 
  ```sh
  scoop bucket add extras
- scoop install mpv ffmpeg-shared aria2 yt-dlp git
+ scoop install git python mpv ffmpeg-shared aria2 yt-dlp
+ scoop install https://github.com/NightDarkness/uwu-cli/releases/download/first_release/uwu-cli.json
+ python3 -m pip install lxml cloudscraper bs4 keyboard soupsieve
  ```
-
- ### Manual
- 
-- Mover la carpeta **Binaries** a "C:\" o alguna ruta a su eleccion.
-- agregar cada una de las carpetas de **Binaries** al `PATH` de windows.
- >Puedes seguir esta [guia](https://www.youtube.com/watch?v=gb9e3m98avk) si no sabes como hacerlo.
-- utilizar uwu-cli desde cualquier terminal.
 
 ## TO-DO
 
