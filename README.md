@@ -15,12 +15,15 @@
  ### Automatica
 
  Requisitos
- - Install [scoop](https://scoop.sh/).
+ - install [Python](https://www.python.org/downloads/).
+ - Install [Scoop](https://scoop.sh/).
  - Install [Terminal Preview](https://apps.microsoft.com/detail/9n8g5rfz9xk3?hl=en-us&gl=US).
 
  ```sh
+ pip install lxml cloudscraper bs4 keyboard soupsieve
  scoop bucket add extras
  scoop install mpv ffmpeg-shared aria2 yt-dlp git
+ scoop install https://github.com/NightDarkness/uwu-cli/releases/download/first_release/uwu-cli.json
  ```
 
  ### Manual
