@@ -3,6 +3,7 @@
 
  ## Dependencias
 
+ - [Python](https://www.python.org/downloads/) interprete del lenguaje Python.
  - [mpv](https://sourceforge.net/projects/mpv-player-windows/files/64bit-v3/) reproductor de video.
  - [ffmpeg](https://ffmpeg.org/download.html) transcodificador de video.
  - [aria2](https://aria2.github.io/) utilidad de descarga de línea de comando.
@@ -13,16 +14,21 @@
  ## Instalacion
 
  Requisitos
- - install <a href="https://www.python.org/downloads/" target='_blank'>Python</a>.
  - Install <a href="https://scoop.sh/" target='_blank'>Scoop</a>.
  - Install <a href="https://apps.microsoft.com/detail/9n8g5rfz9xk3?hl=en-us&gl=US" target='_blank'>Terminal Preview</a>.
 
  ```sh
  scoop bucket add extras
- scoop install git python mpv ffmpeg-shared aria2 yt-dlp
- scoop install https://github.com/NightDarkness/uwu-cli/releases/download/first_release/uwu-cli.json
+ scoop install git python mpv ffmpeg-shared aria2 yt-dlp https://bit.ly/uwu-cli
  python3 -m pip install lxml cloudscraper bs4 keyboard soupsieve
  ```
+
+## Uso
+
+ **En una terminal nueva**
+
+- uwu-cli [Nombre-del-anime]    Ejemplo : uwu-cli Jujutsu-kaisen
+- uwu-cli [comando]             Ejemplo : uwu-cli -h
 
 ## TO-DO
 
