@@ -12,6 +12,19 @@
 
  ## Instalacion
  
+ ### Automatica
+
+ Requisitos
+ - Install [scoop](https://scoop.sh/).
+ - Install [Terminal Preview](https://apps.microsoft.com/detail/9n8g5rfz9xk3?hl=en-us&gl=US).
+
+ ```sh
+ scoop bucket add extras
+ scoop install mpv ffmpeg-shared aria2 yt-dlp git
+ ```
+
+ ### Manual
+ 
 - Mover la carpeta **Binaries** a "C:\" o alguna ruta a su eleccion.
 - agregar cada una de las carpetas de **Binaries** al `PATH` de windows.
  >Puedes seguir esta [guia](https://www.youtube.com/watch?v=gb9e3m98avk) si no sabes como hacerlo.
