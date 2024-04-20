@@ -10,6 +10,7 @@ __pycache__/
 /release
 /uwu-cli.dist
 uwu-cli.exe
+uwu-cli.cmd
 
 # Distribution / packaging
 .Python
