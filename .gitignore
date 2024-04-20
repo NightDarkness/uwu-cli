@@ -9,7 +9,6 @@ __pycache__/
 #Custom folders and files
 /release
 /uwu-cli.dist
-uwu-cli.exe
 uwu-cli.cmd
 
 # Distribution / packaging
