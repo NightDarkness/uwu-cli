@@ -7,19 +7,22 @@ class UwuCli():
 
     def __init__(self):
 
-        self.api = AnimeFLV()
-
         if len(sys.argv) > 1:
             self.params = sys.argv[1]
             self.search = self.params.replace('-', ' ')
         else:
             self.params = None
             self.search = 'dungeon meshi'
-
+            
+        self.api = AnimeFLV()
         self.search_data = self.api.search(self.search)
         self.anime_data = None
+        self.links = None
         self.contador = 0
+        self.cursor = None
         self.position = 1
+        self.position_cache = 0
+        self.cap = None
         self.system = platform.system()
         self.clear_console = 'clear'
 
@@ -39,88 +42,115 @@ class UwuCli():
             'end' : '\033[0m'
         }
 
-    def viewer(self, anime, episodes):
-
+    def set_zero(self):
+        os.system(self.clear_console)
         self.position = 1
+        self.position_cache = 0
+        self.contador = 0
+        self.cursor = None
 
-        while True:
+    def draw(self, ciclos, estado = None):
 
-            os.system(self.clear_console)
-            print(f"{self.cmd_colors['tick2'] + self.cmd_colors['blue']}Name:{self.cmd_colors['end']} {self.cmd_colors['purple'] + anime.replace('-',' ') + self.cmd_colors['end']}\n")
+        os.system(self.clear_console)
+        self.position_cache = self.position
 
-            for i in range(episodes):
+        if estado =='busqueda':
+            print(f"Resultados para {self.cmd_colors['green'] + self.search.replace('-', ' ') + self.cmd_colors['end']}\n")
+
+            for i in range(ciclos):
+                if self.position == i+1:
+                    print(f"[{self.cmd_colors['tick2'] + self.cmd_colors['inv']}*{self.cmd_colors['end']}] {self.search_data[i].id.replace('-',' ')}")
+                else:
+                    print(f"[ ] {self.search_data[i].id.replace('-',' ')}")
+
+            print(f"{self.cmd_colors['yellow']}\n[ESC] Salir\t[i] Info\t[->] Avanzar{self.cmd_colors['end']}")
+
+        elif estado =='info':
+            print(f"{self.cmd_colors['tick2'] + self.cmd_colors['blue']}Name:{self.cmd_colors['end']} {self.cmd_colors['purple'] + self.anime_data.title + self.cmd_colors['end']}\n")
+
+            print(f"Clasificacion: {self.anime_data.rating}\t\tEpisodios: {len(self.anime_data.episodes)}\n\nGenero: {self.anime_data.genres}\n\nSinopsis\n\n{self.anime_data.synopsis}\n")
+
+            print(f"{self.cmd_colors['yellow']}\n[ESC] Salir\t[<-] Volver{self.cmd_colors['end']}")
+
+        elif estado == 'episodios':
+            print(f"{self.cmd_colors['tick2'] + self.cmd_colors['blue']}Name:{self.cmd_colors['end']} {self.cmd_colors['purple'] + self.anime_data.title + self.cmd_colors['end']}\n")
+           
+            for i in range(ciclos):
                 if self.position == i+1:
                     print(f"[{self.cmd_colors['tick2'] + self.cmd_colors['inv']}*{self.cmd_colors['end']}] Episodio {str(i+1)}")
                 else:
                     print(f"[ ] Episodio {str(i+1)}")
-            
-            print(f"{self.cmd_colors['yellow']}\nESC para salir...{self.cmd_colors['end']}")
 
-            cursor = keyboard.read_key()
+            print(f"{self.cmd_colors['yellow']}\n[ESC] Salir\t[<-] Volver\t[->] Avanzar{self.cmd_colors['end']}")
 
-            if cursor == 'down':
+        elif estado =='servidores':
+            print(f"{self.cmd_colors['tick2'] + self.cmd_colors['blue']}Name:{self.cmd_colors['end']} {self.cmd_colors['purple'] + self.anime_data.title} Episodio {str(self.cap) + self.cmd_colors['end']}\n")
+
+            for i in range(ciclos):
+                if self.position == i+1:
+                    print(f"[{self.cmd_colors['tick2'] + self.cmd_colors['inv']}*{self.cmd_colors['end']}] {self.links[0][i]['server']}")
+                else:
+                    print(f"[ ] {self.links[0][i]['server']}")
+
+            print(f"{self.cmd_colors['yellow']}\n[ESC] Salir\t[<-] Volver\t[->] Avanzar{self.cmd_colors['end']}")
+
+    def selector(self, ciclos, estado):
+
+        while True:
+
+            if self.position != self.position_cache:
+                self.draw(ciclos, estado)
+
+            self.cursor = keyboard.read_key()
+
+            if self.cursor == 'down':
                 self.position += 1
 
-            if cursor == 'up':
+            if self.cursor == 'up':
                 self.position -= 1
 
-            if cursor == 'enter' or cursor == 'space':
-                link = self.api.get_video_servers(anime, self.position)
-                servers = len(link[0])
-                cap = self.position
-                self.position = 1
-
-                while True:
-
+            if self.cursor == 'enter' or self.cursor == 'space' or self.cursor == 'right':
+                if estado == 'busqueda':
+                    self.anime_data = self.api.get_anime_info(self.search_data[self.position-1].id)
+                    self.set_zero()
+                    self.selector(self.anime_data.episodes[0].id, 'episodios')
+                elif estado == 'info':
+                    pass
+                elif estado == 'episodios':
+                    self.links = self.api.get_video_servers(self.anime_data.id, self.position)
+                    self.cap = self.position
+                    self.set_zero()
+                    self.selector(len(self.links[0]), 'servidores')
+                elif estado == 'servidores':
                     os.system(self.clear_console)
-                    print(f"{self.cmd_colors['tick2'] + self.cmd_colors['blue']}Name:{self.cmd_colors['end']} {self.cmd_colors['purple'] + anime.replace('-',' ')} Episodio {str(cap) + self.cmd_colors['end']}\n")
+                    print(f"\n\n{self.cmd_colors['green']}Descargando anime...{self.cmd_colors['end']}")
+                    os.system('mpv ' + self.links[0][self.position-1]['code'])
+                    self.set_zero()
 
-                    for i in range(servers):
-                        if self.position == i+1:
-                            print(f"[{self.cmd_colors['tick2'] + self.cmd_colors['inv']}*{self.cmd_colors['end']}] {link[0][i]['server']}")
-                        else:
-                            print(f"[ ] {link[0][i]['server']}")
+            if self.cursor == 'i' and estado == 'busqueda':
+                self.anime_data = self.api.get_anime_info(self.search_data[self.position-1].id)
+                estado = 'info'
+                self.set_zero()
 
-                    print(f"{self.cmd_colors['yellow']}\nESC para volver...{self.cmd_colors['end']}")
+            if self.cursor == 'left':
+                if estado == 'info':
+                    estado = 'busqueda'
+                    self.set_zero()
+                elif estado == 'servidores':
+                    self.set_zero()
+                    self.position = self.cap
+                    break
+                else:
+                    self.set_zero()
+                    break
 
-                    cursor = keyboard.read_key()
-
-                    if cursor == 'down':
-                        self.position += 1
-
-                    if cursor == 'up':
-                        self.position -= 1
-
-                    if cursor == 'enter' or cursor == 'space':
-                        print(f"\n\n{self.cmd_colors['green']}Descargando anime...{self.cmd_colors['end']}")
-                        os.system('mpv ' + link[0][self.position-1]['code'])
-                        break
-
-                    if cursor == 'esc':
-                        os.system(self.clear_console)
-                        print(f"Volviendo al menu anterior, por favor espera.")
-                        self.position = 1
-                        self.contador = 0
-                        cursor = None
-                        break
-
-                    if self.position < 1:
-                        self.position = servers
-                    elif self.position > servers:
-                        self.position = 1
-
-                    time.sleep(0.1)
-
-            if cursor == 'esc':
-                cursor = None
-                self.position = 1
-                self.contador = 0
+            if self.cursor == 'esc':
                 os.system(self.clear_console)
-                break
+                sys.exit()
 
             if self.position < 1:
-                self.position = episodes
-            elif self.position > episodes:
+                self.position = ciclos
+            elif self.position > ciclos:
                 self.position = 1
 
             time.sleep(0.1)
@@ -159,7 +189,6 @@ class UwuCli():
                 os.system(self.clear_console)
 
                 if len(self.search_data) == 0:
-                    os.system(self.clear_console)
 
                     if self.contador < 3:
                         self.contador += 1
@@ -170,57 +199,11 @@ class UwuCli():
                         print(f"{self.cmd_colors['red']}No hay resultados para: \"{self.cmd_colors['purple'] + self.search + self.cmd_colors['red']}\"{self.cmd_colors['end']}")
                         sys.exit(0)
 
-                elif len(self.search_data) == 1:
-                    self.search_data = self.api.get_anime_info(self.search_data[0].id)
-                    anime = self.search_data.id
-                    episodes = self.search_data.episodes[0].id
-                    self.viewer(anime, episodes)
+                elif len(self.search_data) > 0:
+                    self.selector(len(self.search_data), 'busqueda')
+
                     break
-
-                else:
-                    self.position = 1
-                    servers = len(self.search_data)
-
-                    while True:
-
-                        os.system(self.clear_console)
-
-                        print(f"Resultados para {self.cmd_colors['green'] + self.search.replace('-', ' ') + self.cmd_colors['end']}\n")
-
-                        for i in range(servers):
-                            if self.position == i+1:
-                                print(f"[{self.cmd_colors['tick2'] + self.cmd_colors['inv']}*{self.cmd_colors['end']}] {self.search_data[i].id.replace('-',' ')}")
-                            else:
-                                print(f"[ ] {self.search_data[i].id.replace('-',' ')}")
-                        
-                        print(f"{self.cmd_colors['yellow']}\nESC para salir...{self.cmd_colors['end']}")
-
-                        cursor = keyboard.read_key()
-
-                        if cursor == 'down':
-                            self.position += 1
-
-                        if cursor == 'up':
-                            self.position -= 1
-
-                        if cursor == 'enter' or cursor == 'space':
-                            self.anime_data = self.api.get_anime_info(self.search_data[self.position-1].id)
-                            anime = self.anime_data.id
-                            episodes = self.anime_data.episodes[0].id
-                            self.viewer(anime, episodes)
-
-                        if cursor == 'esc':
-                            os.system(self.clear_console)
-                            break
-
-                        if self.position < 1:
-                            self.position = servers
-                        elif self.position > servers:
-                            self.position = 1
-
-                        time.sleep(0.1)
-                    break
-
+        os.system(self.clear_console)
         sys.exit()
 
 app = UwuCli()

@@ -285,8 +285,6 @@ class AnimeFLV(object):
         id = id.replace(" ", "-")
 
         url = ANIME_URL + id
-
-        print(url)
         response = self._scraper.get(url)
         soup = BeautifulSoup(response.text, "lxml")
 
