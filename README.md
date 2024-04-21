@@ -23,6 +23,13 @@
  python3 -m pip install lxml cloudscraper bs4 keyboard soupsieve
  ```
 
+ ## Actualizacion
+
+ ```sh
+ scoop uninstall uwu-cli
+ scoop install https://github.com/NightDarkness/uwu-cli/releases/download/0.2/uwu-cli.json
+ ```
+
 ## Uso
 
  **En una terminal nueva**
