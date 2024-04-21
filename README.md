@@ -40,7 +40,10 @@
 ## TO-DO
 
 - [x] Primer release al publico
-- [ ] Hacer port a Linux
-- [ ] Mejorar velocidad de carga
+- [X] Mejorar velocidad de carga
+- [x] Mostrar informacion del anime
+- [ ] Port a Linux
 - [ ] Descarga de episodios
+- [ ] Port a Android (Termux)
+- [ ] Mejoras de diseño
 
