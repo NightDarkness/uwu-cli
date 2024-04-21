@@ -19,7 +19,7 @@
 
  ```sh
  scoop bucket add extras
- scoop install git python mpv ffmpeg-shared aria2 yt-dlp https://bit.ly/uwu-cli
+ scoop install git python mpv ffmpeg-shared aria2 yt-dlp https://bit.ly/uwu-cli_0-2
  python3 -m pip install lxml cloudscraper bs4 keyboard soupsieve
  ```
 
