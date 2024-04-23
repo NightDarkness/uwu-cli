@@ -13,6 +13,8 @@
 
  ## Instalacion
 
+ <details><summary>Windows</summary>
+
  Requisitos
  - Install <a href="https://scoop.sh/" target='_blank'>Scoop</a>.
  - Install <a href="https://apps.microsoft.com/detail/9n8g5rfz9xk3?hl=en-us&gl=US" target='_blank'>Terminal Preview</a>.
@@ -30,12 +32,20 @@
  scoop install https://github.com/NightDarkness/uwu-cli/releases/download/0.2/uwu-cli.json
  ```
 
-## Uso
+ ## Uso
+ 
+  **En una terminal nueva**
+ 
+ - uwu-cli [Nombre-del-anime]    Ejemplo : uwu-cli Jujutsu-kaisen
+ - uwu-cli [comando]             Ejemplo : uwu-cli -h
 
- **En una terminal nueva**
+</details>
+<details><summary>Linux</summary>
 
-- uwu-cli [Nombre-del-anime]    Ejemplo : uwu-cli Jujutsu-kaisen
-- uwu-cli [comando]             Ejemplo : uwu-cli -h
+   **COMING SOON**
+
+ </details>
+</details>
 
 ## TO-DO
 
