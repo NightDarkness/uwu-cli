@@ -20,6 +20,7 @@
  - Install <a href="https://apps.microsoft.com/detail/9n8g5rfz9xk3?hl=en-us&gl=US" target='_blank'>Terminal Preview</a>.
 
  ```sh
+ scoop install git
  scoop bucket add extras
  scoop install git python mpv ffmpeg-shared aria2 yt-dlp https://github.com/NightDarkness/uwu-cli/releases/download/0.2/uwu-cli.json
  python3 -m pip install lxml cloudscraper bs4 keyboard soupsieve
