@@ -158,12 +158,12 @@ class UwuCli():
     def run(self):
 
         if self.params == None:
-            print('uwu-cli for Windows Version 0.1\n\nusage:\nuwu-cli [Comando]\t\tEx: uwu-cli -h\nuwu-cli [Nombre-del-anime]\t\tEx: uwu-cli Jujutsu-kaisen\n\nComandos:\n-h\t: Muestra todos los comandos y sus funciones.\n-l\t: Muestra los ultimos episodios en emision.\n-n\t: Muestra todos los animes en emision.\n\nCreditos:\nAuthor\t\t: Alfonso Lozano A.K.A. NightDarkness.\nanimeflv api\t: Jorge Alejandro Jiménez Luna.')
+            print('uwu-cli Version 0.3\n\nusage:\nuwu-cli [Comando]\t\tEx: uwu-cli -h\nuwu-cli [Nombre-del-anime]\t\tEx: uwu-cli Jujutsu-kaisen\n\nComandos:\n-h\t: Muestra todos los comandos y sus funciones.\n-l\t: Muestra los ultimos episodios en emision.\n-n\t: Muestra todos los animes en emision.\n\nCreditos:\nAuthor\t\t: Alfonso Lozano A.K.A. NightDarkness.\nanimeflv api\t: Jorge Alejandro Jiménez Luna.')
             sys.exit()
         elif self.params != None and self.params[0] == '-':
             
             if self.params[1] == 'h' or self.params[1] == 'H':
-                print('uwu-cli for Windows Version 0.1\n\nusage:\nuwu-cli [Comando]\t\tEx: uwu-cli -h\nuwu-cli [Nombre-del-anime]\t\tEx: uwu-cli Jujutsu-kaisen\n\nComandos:\n-h\t: Muestra todos los comandos y sus funciones.\n-l\t: Muestra los ultimos episodios en emision.\n-n\t: Muestra todos los animes en emision.\n\nCreditos:\nAuthor\t\t: Alfonso Lozano A.K.A. NightDarkness.\nanimeflv api\t: Jorge Alejandro Jiménez Luna.')
+                print('uwu-cli Version 0.3\n\nusage:\nuwu-cli [Comando]\t\tEx: uwu-cli -h\nuwu-cli [Nombre-del-anime]\t\tEx: uwu-cli Jujutsu-kaisen\n\nComandos:\n-h\t: Muestra todos los comandos y sus funciones.\n-l\t: Muestra los ultimos episodios en emision.\n-n\t: Muestra todos los animes en emision.\n\nCreditos:\nAuthor\t\t: Alfonso Lozano A.K.A. NightDarkness.\nanimeflv api\t: Jorge Alejandro Jiménez Luna.')
             
             elif self.params[1] == 'l' or self.params[1] == 'L':
                 os.system(self.clear_console)
