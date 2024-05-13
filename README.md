@@ -80,7 +80,7 @@ Ve tus animes favoritos en español desde la terminal
    - ./uwu-cli.sh [Nombre-del-anime]    Ejemplo : ./uwu-cli.sh Jujutsu-kaisen
    - ./uwu-cli.sh [comando]             Ejemplo : ./uwu-cli.sh -h
 
-   **NOTA** Puedes agregar el script a PATH para evitar escribir "./" cada vez que quieras usar el programa.
+   **NOTA** Puedes agregar el script a PATH para evitar escribir "./" y poder usar el script en cualquier lugar.
 
  </details>
 </details>
@@ -92,7 +92,8 @@ Ve tus animes favoritos en español desde la terminal
 - [X] Mostrar informacion del anime
 - [X] Port a Linux
 - [ ] Port a MacOS
-- [ ] Descarga de episodios
 - [ ] Port a Android (Termux)
+- [ ] Agregar animes a favoritos
+- [ ] Descarga de episodios
 - [ ] Mejoras de diseño
 
