@@ -77,8 +77,10 @@ Ve tus animes favoritos en español desde la terminal
 
    ## Uso
    
-   - uwu-cli.sh [Nombre-del-anime]    Ejemplo : uwu-cli.sh Jujutsu-kaisen
-   - uwu-cli.sh [comando]             Ejemplo : uwu-cli.sh -h
+   - ./uwu-cli.sh [Nombre-del-anime]    Ejemplo : ./uwu-cli.sh Jujutsu-kaisen
+   - ./uwu-cli.sh [comando]             Ejemplo : ./uwu-cli.sh -h
+
+   **NOTA** Puedes agregar el script a PATH para evitar escribir "./" cada vez que quieras usar el programa.
 
  </details>
 </details>
