@@ -93,7 +93,7 @@ Ve tus animes favoritos en español desde la terminal
 - [X] Port a Linux
 - [ ] Port a MacOS
 - [ ] Port a Android (Termux)
-- [ ] Agregar animes a favoritos
-- [ ] Descarga de episodios
+- [X] Agregar animes a favoritos
+- [X] Descarga de episodios
 - [ ] Mejoras de diseño
 
