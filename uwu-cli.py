@@ -1,6 +1,6 @@
 import sys, os, time, platform
 from modules import AnimeFLV
-import keyboard
+import keyboard, json
 
 
 class UwuCli():
@@ -13,6 +13,11 @@ class UwuCli():
         else:
             self.params = None
             self.search = 'dungeon meshi'
+
+        self.favs_file = self.readFILE()
+        self.favs = [[]]
+        self.favs[0] = list(self.favs_file.keys())
+        self.favs.append(list(self.favs_file.values()))
             
         self.api = AnimeFLV()
         self.search_data = self.api.search(self.search)
@@ -41,6 +46,23 @@ class UwuCli():
             'inv' : '\033[7m',
             'end' : '\033[0m'
         }
+
+    def readFILE(self):
+        try:
+            FILE = open('favs.json')
+            data = json.load(FILE)
+            FILE.close()
+            return data
+        except:
+            print(f'Console >> CAN\'T OPEN {'favs.json'}.')
+
+    def writeFILE(self, data):
+        try:
+            FILE = open('favs.json', 'w')
+            json.dump(data, FILE, indent=4)
+            FILE.close()
+        except:
+            print(f'Console >> CAN\'T SAVE DATA ON PATH: {'favs.json'}.')
 
     def set_zero(self):
         os.system(self.clear_console)
@@ -81,7 +103,7 @@ class UwuCli():
                 else:
                     print(f"[ ] Episodio {str(i+1)}")
 
-            print(f"{self.cmd_colors['yellow']}\n[ESC] Salir\t[<-] Volver\t[->] Avanzar{self.cmd_colors['end']}")
+            print(f"{self.cmd_colors['yellow']}\n[ESC] Salir\t[<-] Volver\t[->] Avanzar\t[F] Favoritos{self.cmd_colors['end']}")
 
         elif estado =='servidores':
             print(f"{self.cmd_colors['tick2'] + self.cmd_colors['blue']}Name:{self.cmd_colors['end']} {self.cmd_colors['purple'] + self.anime_data.title} Episodio {str(self.cap) + self.cmd_colors['end']}\n")
@@ -92,7 +114,19 @@ class UwuCli():
                 else:
                     print(f"[ ] {self.links[0][i]['server']}")
 
-            print(f"{self.cmd_colors['yellow']}\n[ESC] Salir\t[<-] Volver\t[->] Avanzar{self.cmd_colors['end']}")
+            print(f"{self.cmd_colors['yellow']}\n[ESC] Salir\t[<-] Volver\t[->] Avanzar\t[D] Descargar{self.cmd_colors['end']}")
+
+        elif estado =='favoritos':
+            print(f"Tus favoritos guardados\n")
+
+            for i in range(len(self.favs[0])):
+                if self.position == i+1:
+                    print(f"[{self.cmd_colors['tick2'] + self.cmd_colors['inv']}*{self.cmd_colors['end']}] {self.favs[0][i]}")
+                else:
+                    print(f"[ ] {self.favs[0][i]}")
+
+            print(f"{self.cmd_colors['yellow']}\n[ESC] Salir\t[->] Avanzar\t[E] Eliminar{self.cmd_colors['end']}")
+
 
     def selector(self, ciclos, estado):
 
@@ -114,6 +148,10 @@ class UwuCli():
                     self.anime_data = self.api.get_anime_info(self.search_data[self.position-1].id)
                     self.set_zero()
                     self.selector(self.anime_data.episodes[0].id, 'episodios')
+                elif estado == 'favoritos':
+                    self.anime_data = self.api.get_anime_info(self.favs[1][self.position-1])
+                    self.set_zero()
+                    self.selector(self.anime_data.episodes[0].id, 'episodios')
                 elif estado == 'info':
                     pass
                 elif estado == 'episodios':
@@ -131,6 +169,28 @@ class UwuCli():
                 self.anime_data = self.api.get_anime_info(self.search_data[self.position-1].id)
                 estado = 'info'
                 self.set_zero()
+
+            if self.cursor == 'f' and estado == 'episodios':
+
+                if self.anime_data.id in self.favs_file:
+                    print('Console >> Anime ya esta en favoritos.')
+                else:
+                    self.favs_file[self.anime_data.id.replace('-', ' ')] = self.anime_data.id
+                    
+                    self.writeFILE(self.favs_file)
+                
+                print('Console >> Agregado a favoritos.')
+
+            if self.cursor == 'e' and estado == 'favoritos':
+                self.favs_file.pop(self.favs[0][self.position-1])
+                self.writeFILE(self.favs_file)
+                os.system(self.clear_console)
+                print('Anime eliminado de favoritos')
+                sys.exit()
+
+            if self.cursor == 'd' and estado == 'servidores':
+
+                print(f'{self.cmd_colors['green']}Link de descarga: {self.cmd_colors['yellow'] + self.links[0][self.position-1]['code'] + self.cmd_colors['end']}')
 
             if self.cursor == 'left':
                 if estado == 'info':
@@ -158,12 +218,12 @@ class UwuCli():
     def run(self):
 
         if self.params == None:
-            print('uwu-cli Version 0.2\n\nusage:\nuwu-cli [Comando]\t\tEx: uwu-cli -h\nuwu-cli [Nombre-del-anime]\t\tEx: uwu-cli Jujutsu-kaisen\n\nComandos:\n-h\t: Muestra todos los comandos y sus funciones.\n-l\t: Muestra los ultimos episodios en emision.\n-n\t: Muestra todos los animes en emision.\n\nCreditos:\nAuthor\t\t: Alfonso Lozano A.K.A. NightDarkness.\nanimeflv api\t: Jorge Alejandro Jiménez Luna.')
+            print('uwu-cli Version 0.3\n\nusage:\nuwu-cli [Comando]\t\tEx: uwu-cli -h\nuwu-cli [Nombre-del-anime]\t\tEx: uwu-cli Jujutsu-kaisen\n\nComandos:\n-h\t: Muestra todos los comandos y sus funciones.\n-l\t: Muestra los ultimos episodios en emision.\n-n\t: Muestra todos los animes en emision.\n\nCreditos:\nAuthor\t\t: Alfonso Lozano A.K.A. NightDarkness.\nanimeflv api\t: Jorge Alejandro Jiménez Luna.')
             sys.exit()
         elif self.params != None and self.params[0] == '-':
             
             if self.params[1] == 'h' or self.params[1] == 'H':
-                print('uwu-cli Version 0.2\n\nusage:\nuwu-cli [Comando]\t\tEx: uwu-cli -h\nuwu-cli [Nombre-del-anime]\t\tEx: uwu-cli Jujutsu-kaisen\n\nComandos:\n-h\t: Muestra todos los comandos y sus funciones.\n-l\t: Muestra los ultimos episodios en emision.\n-n\t: Muestra todos los animes en emision.\n\nCreditos:\nAuthor\t\t: Alfonso Lozano A.K.A. NightDarkness.\nanimeflv api\t: Jorge Alejandro Jiménez Luna.')
+                print('uwu-cli Version 0.3\n\nusage:\nuwu-cli [Comando]\t\tEx: uwu-cli -h\nuwu-cli [Nombre-del-anime]\t\tEx: uwu-cli Jujutsu-kaisen\n\nComandos:\n-h\t: Muestra todos los comandos y sus funciones.\n-l\t: Muestra los ultimos episodios en emision.\n-n\t: Muestra todos los animes en emision.\n\nCreditos:\nAuthor\t\t: Alfonso Lozano A.K.A. NightDarkness.\nanimeflv api\t: Jorge Alejandro Jiménez Luna.')
             
             elif self.params[1] == 'l' or self.params[1] == 'L':
                 os.system(self.clear_console)
@@ -182,6 +242,12 @@ class UwuCli():
 
                 for i in temp:
                     print(f"{i.title}")
+
+            elif self.params[1] == 'f' or self.params[1] == 'F':
+
+                os.system(self.clear_console)
+
+                self.selector(len(self.favs[0]), 'favoritos')
 
         else:
             while True:
@@ -203,7 +269,7 @@ class UwuCli():
                     self.selector(len(self.search_data), 'busqueda')
 
                     break
-        os.system(self.clear_console)
+            os.system(self.clear_console)
         sys.exit()
 
 app = UwuCli()
