@@ -23,7 +23,7 @@ Ve tus animes favoritos en español desde la terminal
 
  ```sh
  scoop install git && scoop bucket add extras
- scoop install git python mpv ffmpeg-shared aria2 yt-dlp https://github.com/NightDarkness/uwu-cli/releases/download/lastest/uwu-cli.json
+ scoop install git python mpv ffmpeg-shared aria2 yt-dlp https://cutt.ly/uwu-cli
  python3 -m pip install lxml cloudscraper bs4 keyboard soupsieve
  ```
 
