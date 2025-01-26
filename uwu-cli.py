@@ -114,6 +114,8 @@ class UwuCli():
                 else:
                     print(f"[ ] {self.links[0][i]['server']}")
 
+            print(f"{self.cmd_colors['red']}\nMEGA y SW no disponibles por el momento.\nSi el reproductor no se abre posiblemente ese servidor este caido, intenta con otro!{self.cmd_colors['end']}")
+
             print(f"{self.cmd_colors['yellow']}\n[ESC] Salir\t[<-] Volver\t[->] Avanzar\t[D] Descargar{self.cmd_colors['end']}")
 
         elif estado =='favoritos':
@@ -162,7 +164,7 @@ class UwuCli():
                 elif estado == 'servidores':
                     os.system(self.clear_console)
                     print(f"\n\n{self.cmd_colors['green']}Descargando anime...{self.cmd_colors['end']}")
-                    os.system('mpv ' + self.links[0][self.position-1]['code'])
+                    os.system('mpv --fs ' + self.links[0][self.position-1]['code'])
                     self.set_zero()
 
             if self.cursor == 'i' and estado == 'busqueda':
